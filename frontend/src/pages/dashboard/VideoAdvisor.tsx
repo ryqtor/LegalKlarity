@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Video, VideoOff, Mic, MicOff, Phone, ScreenShare, Users, MessageSquare, Loader2 } from 'lucide-react';
+import { Video, VideoOff, Mic, MicOff, Phone, ScreenShare, Users, MessageSquare, Loader2, Bot, Sparkles } from 'lucide-react';
 import DailyIframe from '@daily-co/daily-js';
 import api from '../../utils/baseApi';
+import AIVideoAdvisor from '../../components/AIVideoAdvisor';
 
 const VideoAdvisor: React.FC = () => {
   const [isVideoOn, setIsVideoOn] = useState<boolean>(true);
@@ -16,6 +17,8 @@ const VideoAdvisor: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [roomUrl, setRoomUrl] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [useAIAdvisor, setUseAIAdvisor] = useState<boolean>(false);
+  const [advisorMode, setAdvisorMode] = useState<'human' | 'ai'>('ai'); // Added for toggling - default to AI
 
   const dailyRef = useRef<any>(null);
   const callFrameRef = useRef<HTMLDivElement>(null);
@@ -171,142 +174,179 @@ const VideoAdvisor: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">1v1 Video Advisor</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
-            Connect with legal experts in real-time for personalized guidance
-          </p>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">1v1 Video Advisor</h1>
+              <p className="text-gray-600 dark:text-gray-400 mt-2">
+                Connect with legal experts in real-time for personalized guidance
+              </p>
+            </div>
+            
+            {/* Advisor Mode Toggle */}
+            <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+              <button
+                onClick={() => setAdvisorMode('human')}
+                className={`px-4 py-2 rounded-md text-sm font-medium flex items-center transition ${
+                  advisorMode === 'human'
+                    ? 'bg-white text-blue-600 shadow-sm dark:bg-gray-600 dark:text-white'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                <Users className="h-4 w-4 mr-2" />
+                Human Advisor
+              </button>
+              <button
+                onClick={() => setAdvisorMode('ai')}
+                className={`px-4 py-2 rounded-md text-sm font-medium flex items-center transition ${
+                  advisorMode === 'ai'
+                    ? 'bg-white text-blue-600 shadow-sm dark:bg-gray-600 dark:text-white'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                <Bot className="h-4 w-4 mr-2" />
+                AI Advisor
+              </button>
+            </div>
+          </div>
         </motion.div>
 
         {/* Video Call Container */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-          {/* Video Area */}
-          <div className="relative bg-gray-900 h-[60vh]">
-            {isLoading ? (
-              <div className="flex flex-col items-center justify-center h-full text-center p-8">
-                <Loader2 className="h-12 w-12 text-blue-500 animate-spin mb-6" />
-                <h2 className="text-2xl font-bold text-white mb-2">Setting up your video call</h2>
-                <p className="text-gray-300 mb-6">Preparing your secure session with a legal advisor...</p>
-              </div>
-            ) : (
-              <div id="call-frame" ref={callFrameRef} className="w-full h-full" />
-            )}
-          </div>
+        {advisorMode === 'human' ? (
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+            {/* Video Area */}
+            <div className="relative bg-gray-900 h-[60vh]">
+              {isLoading ? (
+                <div className="flex flex-col items-center justify-center h-full text-center p-8">
+                  <Loader2 className="h-12 w-12 text-blue-500 animate-spin mb-6" />
+                  <h2 className="text-2xl font-bold text-white mb-2">Setting up your video call</h2>
+                  <p className="text-gray-300 mb-6">Preparing your secure session with a legal advisor...</p>
+                </div>
+              ) : (
+                <div id="call-frame" ref={callFrameRef} className="w-full h-full" />
+              )}
+            </div>
 
-          {/* Controls */}
-          <div className="p-6 bg-gray-800">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-6">
-                <button
-                  onClick={toggleAudio}
-                  className={`p-3 rounded-full ${isAudioOn ? 'bg-red-500' : 'bg-green-500'} hover:opacity-90 transition`}
-                  aria-label={isAudioOn ? "Mute" : "Unmute"}
-                >
-                  {isAudioOn ? (
-                    <Mic className="h-6 w-6 text-white" />
-                  ) : (
-                    <MicOff className="h-6 w-6 text-white" />
-                  )}
-                </button>
-                
-                <button
-                  onClick={toggleVideo}
-                  className={`p-3 rounded-full ${isVideoOn ? 'bg-red-500' : 'bg-green-500'} hover:opacity-90 transition`}
-                  aria-label={isVideoOn ? "Stop Video" : "Start Video"}
-                >
-                  {isVideoOn ? (
-                    <Video className="h-6 w-6 text-white" />
-                  ) : (
-                    <VideoOff className="h-6 w-6 text-white" />
-                  )}
-                </button>
-                
-                <button
-                  onClick={toggleScreenShare}
-                  className={`p-3 rounded-full ${isSharingScreen ? 'bg-blue-500' : 'bg-gray-700'} hover:opacity-90 transition`}
-                  aria-label={isSharingScreen ? "Stop Screen Sharing" : "Start Screen Sharing"}
-                >
-                  <ScreenShare className="h-6 w-6 text-white" />
-                </button>
-                
-                <button
-                  onClick={() => setChatVisible(!chatVisible)}
-                  className={`p-3 rounded-full ${chatVisible ? 'bg-blue-500' : 'bg-gray-700'} hover:opacity-90 transition`}
-                  aria-label="Toggle Chat"
-                >
-                  <MessageSquare className="h-6 w-6 text-white" />
-                </button>
-              </div>
-              
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center text-white">
-                  <Users className="h-5 w-5 mr-1" />
-                  <span>{participants} participant{participants !== 1 ? 's' : ''}</span>
+            {/* Controls */}
+            <div className="p-6 bg-gray-800">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center space-x-6">
+                  <button
+                    onClick={toggleAudio}
+                    className={`p-3 rounded-full ${isAudioOn ? 'bg-red-500' : 'bg-green-500'} hover:opacity-90 transition`}
+                    aria-label={isAudioOn ? "Mute" : "Unmute"}
+                  >
+                    {isAudioOn ? (
+                      <Mic className="h-6 w-6 text-white" />
+                    ) : (
+                      <MicOff className="h-6 w-6 text-white" />
+                    )}
+                  </button>
+                  
+                  <button
+                    onClick={toggleVideo}
+                    className={`p-3 rounded-full ${isVideoOn ? 'bg-red-500' : 'bg-green-500'} hover:opacity-90 transition`}
+                    aria-label={isVideoOn ? "Stop Video" : "Start Video"}
+                  >
+                    {isVideoOn ? (
+                      <Video className="h-6 w-6 text-white" />
+                    ) : (
+                      <VideoOff className="h-6 w-6 text-white" />
+                    )}
+                  </button>
+                  
+                  <button
+                    onClick={toggleScreenShare}
+                    className={`p-3 rounded-full ${isSharingScreen ? 'bg-blue-500' : 'bg-gray-700'} hover:opacity-90 transition`}
+                    aria-label={isSharingScreen ? "Stop Screen Sharing" : "Start Screen Sharing"}
+                  >
+                    <ScreenShare className="h-6 w-6 text-white" />
+                  </button>
+                  
+                  <button
+                    onClick={() => setChatVisible(!chatVisible)}
+                    className={`p-3 rounded-full ${chatVisible ? 'bg-blue-500' : 'bg-gray-700'} hover:opacity-90 transition`}
+                    aria-label="Toggle Chat"
+                  >
+                    <MessageSquare className="h-6 w-6 text-white" />
+                  </button>
                 </div>
                 
-                <button
-                  onClick={endCall}
-                  className="p-3 bg-red-500 hover:bg-red-600 rounded-full transition flex items-center"
-                  aria-label="End Call"
-                >
-                  <Phone className="h-6 w-6 text-white" />
-                </button>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center text-white">
+                    <Users className="h-5 w-5 mr-1" />
+                    <span>{participants} participant{participants !== 1 ? 's' : ''}</span>
+                  </div>
+                  
+                  <button
+                    onClick={endCall}
+                    className="p-3 bg-red-500 hover:bg-red-600 rounded-full transition flex items-center"
+                    aria-label="End Call"
+                  >
+                    <Phone className="h-6 w-6 text-white" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          // AI Advisor Component
+          <AIVideoAdvisor />
+        )}
 
-        {/* Additional Info Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Legal Document Review</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Share your legal documents directly with your advisor during the video call for real-time review and guidance.
-            </p>
-            <button className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
-              Upload document for review
-            </button>
-          </div>
-          
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Prepared Questions</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Here are some common questions other users ask during video consultations:
-            </p>
-            <ul className="space-y-2">
-              <li className="flex items-start">
-                <span className="text-blue-500 mr-2">•</span>
-                <span className="text-gray-600 dark:text-gray-400">What are the key risks in this contract?</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-blue-500 mr-2">•</span>
-                <span className="text-gray-600 dark:text-gray-400">How does this compare to standard practices?</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-blue-500 mr-2">•</span>
-                <span className="text-gray-600 dark:text-gray-400">What alternatives do I have?</span>
-              </li>
-            </ul>
-          </div>
-          
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Advisor Information</h3>
-            <div className="flex items-center mb-4">
-              <div className="h-12 w-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mr-3">
-                <span className="text-gray-700 dark:text-gray-300 font-medium">LA</span>
-              </div>
-              <div>
-                <h4 className="font-medium text-gray-900 dark:text-white">Sarah Johnson</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Legal Counsel, 12+ years experience</p>
-              </div>
+        {/* Additional Info Panel - Only show for human advisor mode */}
+        {advisorMode === 'human' && (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Legal Document Review</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Share your legal documents directly with your advisor during the video call for real-time review and guidance.
+              </p>
+              <button className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
+                Upload document for review
+              </button>
             </div>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Specializes in contract law, intellectual property, and corporate compliance.
-            </p>
+            
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Prepared Questions</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Here are some common questions other users ask during video consultations:
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-gray-600 dark:text-gray-400">What are the key risks in this contract?</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-gray-600 dark:text-gray-400">How does this compare to standard practices?</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-gray-600 dark:text-gray-400">What alternatives do I have?</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Advisor Information</h3>
+              <div className="flex items-center mb-4">
+                <div className="h-12 w-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mr-3">
+                  <span className="text-gray-700 dark:text-gray-300 font-medium">LA</span>
+                </div>
+                <div>
+                  <h4 className="font-medium text-gray-900 dark:text-white">Sarah Johnson</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Legal Counsel, 12+ years experience</p>
+                </div>
+              </div>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Specializes in contract law, intellectual property, and corporate compliance.
+              </p>
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Chat Panel - Toggle visible based on state */}
-        {chatVisible && (
+        {/* Chat Panel - Only show for human advisor mode */}
+        {advisorMode === 'human' && chatVisible && (
           <motion.div 
             initial={{ opacity: 0, x: 300 }}
             animate={{ opacity: 1, x: 0 }}
