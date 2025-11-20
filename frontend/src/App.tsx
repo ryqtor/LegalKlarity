@@ -33,7 +33,7 @@ import TermsPage from './pages/terms/TermsPage';
 import SecurityPage from './pages/security/SecurityPage';
 import TubelightNavbarDemo from './pages/navbar/TubelightNavbarDemo';
 import { NavBar } from './components/ui/tubelight-navbar';
-import { Home, User, FileText, Mail } from 'lucide-react';
+import { Home, User, FileText, Mail, Zap, Briefcase, Library } from 'lucide-react';
 
 // Lazy loaded dashboard pages
 const Login = lazy(() => import("./pages/auth/Login"));
@@ -111,8 +111,10 @@ function App() {
       <NavBar
         items={[
           { name: 'Home', url: '/', icon: Home },
+          { name: 'Features', url: '/features', icon: Zap },
+          { name: 'Use Cases', url: '/use-cases', icon: Briefcase },
+          { name: 'Resources', url: '/resources', icon: Library },
           { name: 'About', url: '/about', icon: User },
-          { name: 'Solutions', url: '/solutions', icon: FileText },
           { name: 'Contact', url: '/contact', icon: Mail }
         ]}
         actions={[

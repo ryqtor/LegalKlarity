@@ -54,7 +54,7 @@ const ContactPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black py-28 px-4 md:px-20">
+    <div className="min-h-screen bg-background text-foreground py-28 px-4 md:px-20">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -62,7 +62,7 @@ const ContactPage: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="text-center mb-16"
       >
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-indigo-500 mb-4">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-accent mb-4">
           Get in Touch with LegalKlarity
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -77,28 +77,28 @@ const ContactPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <motion.h2 
-            className="text-3xl font-bold text-gray-900 dark:text-indigo-500 mb-12"
+          <motion.h2
+            className="text-3xl font-bold text-gray-900 dark:text-accent mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             Contact Information
           </motion.h2>
-          
+
           <div className="space-y-8">
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               return (
-                <motion.div 
-                  key={index} 
+                <motion.div
+                  key={index}
                   className="flex"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                 >
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center dark:bg-indigo-900/30 dark:text-indigo-400">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center dark:bg-primary/20 dark:text-accent">
                       <Icon className="h-6 w-6" />
                     </div>
                   </div>
@@ -117,16 +117,16 @@ const ContactPage: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8 }}
-            className="mt-16 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-8 border border-indigo-100 dark:from-indigo-900/20 dark:to-purple-900/20 dark:border-indigo-800/50"
+            className="mt-16 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-8 border border-primary/10 dark:from-primary/20 dark:to-accent/10 dark:border-primary/20"
           >
             <div className="flex items-start">
-              <MessageCircle className="h-10 w-10 text-indigo-600 mr-4 dark:text-indigo-400" />
+              <MessageCircle className="h-10 w-10 text-primary mr-4 dark:text-accent" />
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Need Instant Help?</h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6">
                   Our AI legal assistant Klarity is available 24/7 to answer your legal questions instantly.
                 </p>
-                <button className="text-indigo-600 font-medium hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 transition">
+                <button className="text-primary font-medium hover:text-primary/80 dark:text-accent dark:hover:text-accent/80 transition">
                   Open Chatbot →
                 </button>
               </div>
@@ -139,17 +139,17 @@ const ContactPage: React.FC = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-white rounded-xl shadow-sm p-8 dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+          className="bg-white rounded-xl shadow-sm p-8 dark:bg-card border border-gray-200 dark:border-border"
         >
-          <motion.h2 
-            className="text-3xl font-bold text-gray-900 dark:text-indigo-500 mb-8"
+          <motion.h2
+            className="text-3xl font-bold text-gray-900 dark:text-accent mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             Send us a Message
           </motion.h2>
-          
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -166,11 +166,11 @@ const ContactPage: React.FC = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-indigo-600"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-secondary/10 dark:border-border dark:text-white dark:focus:ring-accent"
                 placeholder="Your full name"
               />
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -186,11 +186,11 @@ const ContactPage: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-indigo-600"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-secondary/10 dark:border-border dark:text-white dark:focus:ring-accent"
                 placeholder="your.email@example.com"
               />
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -206,11 +206,11 @@ const ContactPage: React.FC = () => {
                 value={formData.subject}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-indigo-600"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-secondary/10 dark:border-border dark:text-white dark:focus:ring-accent"
                 placeholder="How can we help you?"
               />
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -226,17 +226,17 @@ const ContactPage: React.FC = () => {
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-indigo-600"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-secondary/10 dark:border-border dark:text-white dark:focus:ring-accent"
                 placeholder="Please provide as much detail as possible..."
               />
             </motion.div>
-            
+
             <motion.button
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
               type="submit"
-              className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-indigo-700 transition shadow-sm dark:bg-indigo-700 dark:hover:bg-indigo-600"
+              className="w-full bg-primary text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary/90 transition shadow-sm dark:bg-primary/80 dark:hover:bg-primary/70"
             >
               Send Message
             </motion.button>
@@ -249,17 +249,17 @@ const ContactPage: React.FC = () => {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.0 }}
-        className="mt-20 bg-gray-50 rounded-2xl p-8 text-center dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+        className="mt-20 bg-gray-50 rounded-2xl p-8 text-center dark:bg-card border border-gray-200 dark:border-border"
       >
-        <motion.h2 
-          className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-indigo-500"
+        <motion.h2
+          className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-accent"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1.1 }}
         >
           Prefer to Connect Another Way?
         </motion.h2>
-        <motion.p 
+        <motion.p
           className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -267,13 +267,13 @@ const ContactPage: React.FC = () => {
         >
           We're here to help through multiple channels. Reach out through your preferred method.
         </motion.p>
-        <motion.div 
+        <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1.3 }}
         >
-          <button className="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition dark:bg-indigo-700 dark:hover:bg-indigo-600">
+          <button className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition dark:bg-primary/80 dark:hover:bg-primary/70">
             Schedule a Call
           </button>
           <button className="bg-white text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
