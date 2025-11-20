@@ -10,6 +10,10 @@ export const siteConfig = {
     github: "https://github.com/LegalKlarity/legalklarity",
     email: "mailto:contact@legalklarity.com",
   },
+  pricing: {
+    pro: "https://legalklarity.com/pricing/pro",
+    team: "https://legalklarity.com/pricing/team",
+  },
   stats: {
     figma: 6124,
     github: 1553,

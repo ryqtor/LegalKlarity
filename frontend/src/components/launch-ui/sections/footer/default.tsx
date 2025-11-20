@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { siteConfig } from "../../../config/site";
-import { cn } from "../../../lib/utils";
+import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 import LaunchUI from "../../logos/launch-ui";
 import {

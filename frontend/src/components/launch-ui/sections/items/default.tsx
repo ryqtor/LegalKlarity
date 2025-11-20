@@ -8,7 +8,7 @@ import {
   ScanFaceIcon,
   SquarePenIcon,
 } from "lucide-react";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Item, ItemDescription,ItemIcon, ItemTitle } from "../../ui/item";
 import { Section } from "../../ui/section";

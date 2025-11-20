@@ -1,11 +1,11 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { CircleCheckBig } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
-import { Button } from "./button";
+import { Button, buttonVariants } from "./button";
 
 const pricingColumnVariants = cva(
   "max-w-container relative flex flex-col gap-6 overflow-hidden rounded-2xl p-8 shadow-xl",
@@ -26,7 +26,7 @@ const pricingColumnVariants = cva(
 
 export interface PricingColumnProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof pricingColumnVariants> {
+  VariantProps<typeof pricingColumnVariants> {
   name: string;
   icon?: ReactNode;
   description: string;
@@ -94,7 +94,9 @@ export function PricingColumn({
           </div>
         </div>
         <Button variant={cta.variant} size="lg" asChild>
-          <Link href={cta.href}>{cta.label}</Link>
+          <Link to={cta.href} className={cn(buttonVariants(), "w-full")}>
+            {cta.label}
+          </Link>
         </Button>
         <p className="text-muted-foreground min-h-[40px] max-w-[220px] text-sm">
           {priceNote}

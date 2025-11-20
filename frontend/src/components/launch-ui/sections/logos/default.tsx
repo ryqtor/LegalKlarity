@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { siteConfig } from "../../../config/site";
+import { siteConfig } from "@/config/site";
 
 import Figma from "../../logos/figma";
 import React from "../../logos/react";

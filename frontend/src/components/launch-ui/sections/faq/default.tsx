@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { siteConfig } from "../../../config/site";
+import { siteConfig } from "@/config/site";
 
 import {
   Accordion,
@@ -101,7 +101,7 @@ export default function FAQ({
           </p>
           <p className="text-muted-foreground mb-4 max-w-[580px]">
             For complete details about licensing and usage rights, check out{" "}
-            <Link href="/pricing" className="text-foreground underline">
+            <Link to="/pricing" className="text-foreground underline">
               the pricing page
             </Link>
             .
@@ -114,12 +114,12 @@ export default function FAQ({
       answer: (
         <p className="text-muted-foreground mb-4 max-w-[580px]">
           Yes! The complete Launch UI template is available for free on the{" "}
-          <Link
+          <a
             href="https://www.figma.com/community/file/1420131743903900629/launch-ui-landing-page-components-ui-kit"
             className="text-foreground underline"
           >
             Figma community
-          </Link>
+          </a>
           .
         </p>
       ),

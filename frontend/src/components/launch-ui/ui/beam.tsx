@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 const beamVariants = cva(
   "relative after:content-[''] after:absolute after:inset-0 after:rounded-full after:scale-200",
@@ -24,7 +24,7 @@ const beamVariants = cva(
 
 export interface BeamProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof beamVariants> {}
+  VariantProps<typeof beamVariants> { }
 
 function Beam({ className, tone, ...props }: BeamProps) {
   return (

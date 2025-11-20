@@ -2,9 +2,9 @@
 
 import { Link } from "react-router-dom";
 import * as React from "react";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { siteConfig } from "../../config/site";
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 import LaunchUI from "../logos/launch-ui";

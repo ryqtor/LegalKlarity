@@ -1,9 +1,9 @@
 import { type VariantProps } from "class-variance-authority";
 import { ArrowRightIcon } from "lucide-react";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { siteConfig } from "../../../config/site";
-import { cn } from "../../../lib/utils";
+import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 import Github from "../../logos/github";
 import { Badge } from "../../ui/badge";

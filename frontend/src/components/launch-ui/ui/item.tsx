@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 function Item({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -48,4 +48,4 @@ function ItemIcon({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-export { Item, ItemDescription,ItemIcon, ItemTitle };
+export { Item, ItemDescription, ItemIcon, ItemTitle };
