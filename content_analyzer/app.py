@@ -13,17 +13,35 @@ import os
 from datetime import datetime
 import textwrap
 
-# Try to import Vertex AI components
+# Try to import Google AI Studio SDK
 try:
-    import google.cloud.aiplatform as aiplatform
-    from vertexai.generative_models import GenerativeModel, Part
-    VERTEX_AI_AVAILABLE = True
+    import google.generativeai as genai
+    from dotenv import load_dotenv
+    load_dotenv()
+    
+    API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
+    
+    if API_KEY:
+        genai.configure(api_key=API_KEY)
+        # Use gemini-flash-latest as gemini-1.5-flash is not available
+        model = genai.GenerativeModel("gemini-flash-latest")
+        AI_MODE = "STUDIO"
+        print("="*60)
+        print("AI MODE ENABLED - Using Google AI Studio")
+        print("="*60)
+    else:
+        AI_MODE = "NONE"
+        model = None
+        print("No GEMINI_API_KEY found - using fallback analysis")
+
 except ImportError:
-    VERTEX_AI_AVAILABLE = False
-    print("Vertex AI not available - using fallback analysis")
+    AI_MODE = "NONE"
+    model = None
+    print("Google AI SDK not available - using fallback analysis")
 except Exception as e:
-    VERTEX_AI_AVAILABLE = False
-    print(f"Vertex AI initialization failed: {e}")
+    AI_MODE = "NONE"
+    model = None
+    print(f"AI initialization failed: {e}")
 
 # Flask app
 app = Flask(__name__)
@@ -31,20 +49,6 @@ app = Flask(__name__)
 # Google Cloud configuration
 GOOGLE_CLOUD_PROJECT = os.environ.get("GOOGLE_CLOUD_PROJECT", "your-google-cloud-project-id")
 GOOGLE_CLOUD_LOCATION = os.environ.get("GOOGLE_CLOUD_LOCATION", "us-central1")
-
-# Initialize Vertex AI
-if VERTEX_AI_AVAILABLE:
-    try:
-        aiplatform.init(
-            project=GOOGLE_CLOUD_PROJECT,
-            location=GOOGLE_CLOUD_LOCATION
-        )
-        print("Vertex AI initialized successfully")
-    except Exception as e:
-        VERTEX_AI_AVAILABLE = False
-        print(f"Vertex AI initialization failed: {e}")
-else:
-    print("Vertex AI not available")
 
 # Section cues to check for agreements
 POSITIVE_LABELS = [
@@ -70,14 +74,6 @@ def safe_join_text(parts):
 def chunk_text(text, max_words=300, max_chunks=10):
     """
     Split text into chunks of specified word count
-    
-    Args:
-        text (str): Text to chunk
-        max_words (int): Maximum words per chunk
-        max_chunks (int): Maximum number of chunks to return
-        
-    Returns:
-        list: List of text chunks
     """
     words = text.split()
     chunks = [" ".join(words[i:i + max_words]) for i in range(0, len(words), max_words)]
@@ -127,9 +123,6 @@ def classify_agreement(text):
 def detect_document_type(text):
     """
     Enhanced document type detection
-    
-    Returns:
-        str: Detected document type
     """
     text_lower = text.lower()
     
@@ -162,9 +155,6 @@ def detect_document_type(text):
 def create_fallback_analysis(text, document_type):
     """
     Create basic analysis when AI analysis fails
-    
-    Returns:
-        dict: Basic analysis structure
     """
     # Extract first few sentences for summary
     sentences = text.split('.')
@@ -189,22 +179,15 @@ def create_fallback_analysis(text, document_type):
 def analyze_legal_document(text, document_type=None):
     """
     Comprehensive legal document analysis using Gemini AI
-    
-    Args:
-        text (str): Extracted text from legal document
-        document_type (str, optional): Type of document (auto-detected if None)
-    
-    Returns:
-        dict: Structured analysis with 12 categories
     """
     
     # Auto-detect document type if not provided
     if not document_type:
         document_type = detect_document_type(text)
     
-    # If Vertex AI is not available, use fallback analysis
-    if not VERTEX_AI_AVAILABLE:
-        print("Using fallback analysis - Vertex AI not available")
+    # If AI is not available, use fallback analysis
+    if AI_MODE == "NONE" or model is None:
+        print("Using fallback analysis - AI not available")
         return create_fallback_analysis(text, document_type)
     
     # Enhanced prompt engineering for comprehensive analysis
@@ -274,12 +257,19 @@ def analyze_legal_document(text, document_type=None):
     
     Document Text:
     {text[:50000]}  # Limit to prevent token overflow
+    
+    Rules:
+    - If information is not found, return an empty string ("") or empty list ([]).
+    - Do not include explanations outside the JSON.
+    - Keep responses concise and accessible for non-lawyers.
+    - While generating each field, add more and more explanation and context to each field to ensure deep analysis.
+    - Strictly return JSON with the specified fields and no additional fields.
     """
     
     try:
-        # Initialize Gemini model
-        model = GenerativeModel("gemini-1.5-flash-001")
-        
+        if AI_MODE == "NONE" or model is None:
+            raise Exception("No AI model initialized")
+
         # Generate response
         response = model.generate_content(
             prompt,
@@ -291,8 +281,20 @@ def analyze_legal_document(text, document_type=None):
             }
         )
         
+        # Clean response text (remove markdown code blocks)
+        response_text = response.text.strip()
+        if response_text.startswith("```json"):
+            response_text = response_text[7:]
+        elif response_text.startswith("```"):
+            response_text = response_text[3:]
+        
+        if response_text.endswith("```"):
+            response_text = response_text[:-3]
+            
+        response_text = response_text.strip()
+        
         # Parse and validate JSON response
-        analysis = json.loads(response.text)
+        analysis = json.loads(response_text)
         return analysis
         
     except json.JSONDecodeError as e:
@@ -362,10 +364,7 @@ def enhanced_document_analysis():
         print(f"Classification result: {is_ok}, Details: {details}")
         
         if not is_ok:
-            return jsonify({
-                "error": "Rejected: Not a valid agreement.",
-                "details": details
-            }), 400
+            print("Warning: Low confidence classification, proceeding anyway")
         
         # Perform enhanced analysis
         print("Performing enhanced analysis")

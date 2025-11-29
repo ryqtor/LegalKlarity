@@ -35,6 +35,12 @@ app.use((req, res, next) => {
   next();
 });
 
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.originalUrl}`);
+  next();
+});
+
 // Routes
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/agreements', agreementRouter);
@@ -43,8 +49,8 @@ app.use('/api/v1/cases', caseRouter);
 app.use('/api/v1', aiRouter);
 app.use('/api/v1/video-advisor', videoAdvisorRouter);
 app.get("/api/v1/active", (req: Request, res: Response) => {
-    res.status(200).json(
-      new ApiResponse(200, "Platform active")
+  res.status(200).json(
+    new ApiResponse(200, "Platform active")
   );
 });
 

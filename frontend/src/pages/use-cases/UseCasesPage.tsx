@@ -123,10 +123,10 @@ const UseCasesPage: React.FC = () => {
                   </p>
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold mr-3 dark:bg-primary/30 dark:text-accent">
-                      P
+                      A
                     </div>
                     <div>
-                      <div className="font-semibold text-gray-900 dark:text-white">Priya S.</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">Ananya M.</div>
                       <div className="text-sm text-gray-600 dark:text-gray-400">Computer Science Graduate</div>
                     </div>
                   </div>
@@ -143,10 +143,10 @@ const UseCasesPage: React.FC = () => {
                   </p>
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold mr-3 dark:bg-primary/30 dark:text-accent">
-                      A
+                      R
                     </div>
                     <div>
-                      <div className="font-semibold text-gray-900 dark:text-white">Amit R.</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">Rohan P.</div>
                       <div className="text-sm text-gray-600 dark:text-gray-400">Engineering Student</div>
                     </div>
                   </div>
@@ -318,10 +318,10 @@ const UseCasesPage: React.FC = () => {
                   </p>
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold mr-3 dark:bg-primary/30 dark:text-accent">
-                      S
+                      M
                     </div>
                     <div>
-                      <div className="font-semibold text-gray-900 dark:text-white">Sunita M.</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">Meera V.</div>
                       <div className="text-sm text-gray-600 dark:text-gray-400">Software Professional</div>
                     </div>
                   </div>
@@ -338,10 +338,10 @@ const UseCasesPage: React.FC = () => {
                   </p>
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold mr-3 dark:bg-primary/30 dark:text-accent">
-                      R
+                      A
                     </div>
                     <div>
-                      <div className="font-semibold text-gray-900 dark:text-white">Rahul T.</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">Arjun K.</div>
                       <div className="text-sm text-gray-600 dark:text-gray-400">Marketing Manager</div>
                     </div>
                   </div>
@@ -507,10 +507,10 @@ const UseCasesPage: React.FC = () => {
                   </p>
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold mr-3 dark:bg-primary/30 dark:text-accent">
-                      R
+                      V
                     </div>
                     <div>
-                      <div className="font-semibold text-gray-900 dark:text-white">Rajesh K.</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">Vikram S.</div>
                       <div className="text-sm text-gray-600 dark:text-gray-400">Manufacturing Business Owner</div>
                     </div>
                   </div>
@@ -527,10 +527,10 @@ const UseCasesPage: React.FC = () => {
                   </p>
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold mr-3 dark:bg-primary/30 dark:text-accent">
-                      P
+                      N
                     </div>
                     <div>
-                      <div className="font-semibold text-gray-900 dark:text-white">Priya S.</div>
+                      <div className="font-semibold text-gray-900 dark:text-white">Neha R.</div>
                       <div className="text-sm text-gray-600 dark:text-gray-400">Tech Startup Founder</div>
                     </div>
                   </div>

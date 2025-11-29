@@ -37,45 +37,21 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-border sticky top-0 z-40"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-display font-bold text-foreground">Legal Dashboard</h1>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Access all your legal tools and services in one place
-              </p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20">
-                <span className="text-primary font-bold">LK</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">
         {/* Welcome Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary-600 to-indigo-800 p-8 shadow-xl mb-12"
+          className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#5D001E] to-[#3E2723] p-8 shadow-xl mb-12"
         >
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
-          <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-[#E3C598]/10 rounded-full blur-3xl"></div>
 
           <div className="relative z-10 max-w-3xl">
             <motion.h2
-              className="text-3xl md:text-4xl font-display font-bold text-white mb-4"
+              className="text-3xl md:text-4xl font-display font-bold text-[#E3C598] mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -83,7 +59,7 @@ export default function Dashboard() {
               Welcome to LegalKlarity
             </motion.h2>
             <motion.p
-              className="text-primary-100 text-lg mb-8 max-w-2xl leading-relaxed"
+              className="text-[#FDFBF7]/90 text-lg mb-8 max-w-2xl leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
@@ -95,7 +71,7 @@ export default function Dashboard() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
               onClick={() => navigate("/dashboard/role-selection")}
-              className="bg-white text-primary-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-50 transition shadow-lg hover:shadow-xl flex items-center gap-2"
+              className="bg-[#E3C598] text-[#3E2723] px-8 py-3 rounded-full font-semibold hover:bg-[#FDFBF7] transition shadow-lg hover:shadow-xl flex items-center gap-2"
             >
               Get Started <ArrowRight className="w-4 h-4" />
             </motion.button>
@@ -135,8 +111,13 @@ export default function Dashboard() {
                     <Icon className="h-7 w-7" />
                   </div>
 
-                  <h2 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                  <h2 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors flex items-center gap-2">
                     {feature.name}
+                    {feature.name === "1v1 Video Advisor" && (
+                      <span className="text-xs font-semibold px-2 py-1 rounded-full bg-yellow-500/20 text-yellow-600 dark:bg-yellow-500/30 dark:text-yellow-400 border border-yellow-500/30">
+                        🚧 Prototype
+                      </span>
+                    )}
                   </h2>
                   <p className="text-muted-foreground leading-relaxed mb-4">{feature.description}</p>
 

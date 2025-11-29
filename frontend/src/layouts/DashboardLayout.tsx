@@ -1,11 +1,11 @@
 import React, { type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  Home, 
-  FileText, 
-  Users, 
-  MessageSquare, 
-  Settings, 
+import {
+  Home,
+  FileText,
+  Users,
+  MessageSquare,
+  Settings,
   LogOut
 } from 'lucide-react';
 import { signOut } from 'firebase/auth';
@@ -25,7 +25,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
-  
+
   const handleLogout = async () => {
     // Check if we're in mock mode
     if (import.meta.env.VITE_USE_MOCK_API === 'true') {
@@ -34,7 +34,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       navigate("/");
       return;
     }
-    
+
     // Firebase logout
     if (auth && auth.currentUser) {
       await signOut(auth);
@@ -60,14 +60,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-slate-900">
+    <div className="flex h-screen bg-gray-50 dark:bg-transparent">
       {/* Static sidebar for desktop */}
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
-        <div className="flex flex-col flex-grow pt-5 bg-white overflow-y-auto border-r border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+        <div className="flex flex-col flex-grow pt-5 bg-white overflow-y-auto border-r border-gray-200 dark:bg-[#1a1a1a] dark:border-white/10">
           <div className="flex items-center justify-between px-4">
             <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-700 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">LK</span>
+              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-[#5D001E] to-[#3E2723] flex items-center justify-center border border-[#E3C598]/20">
+                <span className="text-[#E3C598] font-bold text-sm">LK</span>
               </div>
               <span className="text-xl font-bold text-gray-900 dark:text-white">LegalKlarity</span>
             </div>
@@ -78,16 +78,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`${
-                    isActive(item.href)
-                      ? 'bg-primary-50 text-primary-700 dark:bg-slate-700 dark:text-primary-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white'
-                  } group flex items-center px-2 py-2 text-sm font-medium rounded-md`}
+                  className={`${isActive(item.href)
+                    ? 'bg-amber-50 text-amber-900 dark:bg-[#E3C598]/10 dark:text-[#E3C598]'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-white'
+                    } group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors duration-200`}
                 >
                   <item.icon
-                    className={`${
-                      isActive(item.href) ? 'text-primary-500 dark:text-primary-400' : 'text-gray-400 group-hover:text-gray-500 dark:text-slate-400 dark:group-hover:text-slate-300'
-                    } mr-3 flex-shrink-0 h-6 w-6`}
+                    className={`${isActive(item.href) ? 'text-amber-600 dark:text-[#E3C598]' : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300'
+                      } mr-3 flex-shrink-0 h-6 w-6`}
                     aria-hidden="true"
                   />
                   {item.name}
@@ -95,16 +93,16 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               ))}
             </nav>
           </div>
-          <div className="flex-shrink-0 flex border-t border-gray-200 p-4 dark:border-slate-700">
+          <div className="flex-shrink-0 flex border-t border-gray-200 p-4 dark:border-white/10">
             <button
               onClick={handleLogout}
               className="flex-shrink-0 w-full group block"
             >
               <div className="flex items-center">
                 <div className="ml-3">
-                  <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900 dark:text-slate-300 dark:group-hover:text-white">Sign out</p>
+                  <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">Sign out</p>
                 </div>
-                <LogOut className="ml-auto h-5 w-5 text-gray-400 group-hover:text-gray-500 dark:text-slate-400 dark:group-hover:text-white" />
+                <LogOut className="ml-auto h-5 w-5 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-white" />
               </div>
             </button>
           </div>

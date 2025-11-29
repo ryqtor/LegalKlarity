@@ -49,7 +49,7 @@ export function NavBar({ items, className, actions }: NavBarProps) {
       <div className="glass-panel relative max-w-7xl mx-auto flex items-center justify-between gap-4 py-3 px-6 rounded-full shadow-2xl ring-1 ring-white/20 dark:ring-white/10">
         {/* Logo */}
         <Link to="/" className="flex items-center shrink-0">
-          <img src="/logo.png" alt="LegalKlarity" className="h-8 w-auto object-contain" />
+          <img src="/logo.png" alt="LegalKlarity" className="h-8 w-8 object-cover rounded-full" />
         </Link>
 
         {/* Nav Items */}

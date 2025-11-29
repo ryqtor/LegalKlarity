@@ -367,8 +367,8 @@ const AboutPage = () => {
             className="bg-white dark:bg-card rounded-2xl p-6 border border-gray-200 dark:border-border text-center shadow-xl"
           >
             <Award className="w-12 h-12 text-primary dark:text-accent mx-auto mb-4" />
-            <div className="text-xl font-bold text-gray-900 dark:text-white mb-2">TechCrunch Disrupt</div>
-            <p className="text-gray-600 dark:text-gray-300">Winner - Best AI Innovation 2024</p>
+            <div className="text-xl font-bold text-gray-900 dark:text-white mb-2">Imaginary Hackathon 🎭</div>
+            <p className="text-gray-600 dark:text-gray-300">Winner - Most Creative Demo 2024</p>
           </motion.div>
 
           <motion.div

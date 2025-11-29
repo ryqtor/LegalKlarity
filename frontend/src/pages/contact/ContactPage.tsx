@@ -36,14 +36,14 @@ const ContactPage: React.FC = () => {
     {
       icon: Phone,
       title: "Call Us",
-      details: "+91 98765 43210",
+      details: "+91 6969696969",
       description: "Monday to Friday, 9AM to 6PM IST"
     },
     {
       icon: MapPin,
       title: "Visit Us",
       details: "LegalKlarity Technologies Pvt. Ltd.",
-      description: "Mumbai, Maharashtra, India"
+      description: "Amravati, Andhra Pradesh, India"
     },
     {
       icon: Clock,

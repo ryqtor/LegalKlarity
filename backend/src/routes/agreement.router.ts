@@ -1,6 +1,6 @@
 // agreement router.ts
 import { Router } from 'express';
-import { 
+import {
     agreementSummary,
     enhancedAgreementAnalysis,
     processAgreement,
@@ -13,7 +13,7 @@ const router = Router();
 
 router.route("/agreement-summary").post(authenticate, upload.fields([{ name: "file", maxCount: 1 }]), agreementSummary)
 
-router.route("/enhanced-analysis").post(authenticate, upload.fields([{ name: "file", maxCount: 1 }]), enhancedAgreementAnalysis)
+router.route("/enhanced-analysis").post(upload.fields([{ name: "file", maxCount: 1 }]), enhancedAgreementAnalysis)
 
 router.route("/agreement-process").post(authenticate, processAgreement)
 

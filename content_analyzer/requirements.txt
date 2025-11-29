@@ -13,3 +13,5 @@ gunicorn==20.1.0
 google-auth==2.22.0
 google-api-python-client==2.95.0
 google-cloud-aiplatform==1.26.1
+google-generativeai
+python-dotenv
