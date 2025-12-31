@@ -1,4 +1,4 @@
-# LegalKlarity ⚖️
+# LegalKlarity
 
 [![Gen AI Exchange](https://img.shields.io/badge/Hackathon-Gene%20AI%20Exchange%2025-7000FF?style=for-the-badge&logo=google&logoColor=white)](https://github.com/oyelurker/LegalKlarity)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](LICENSE)
@@ -8,10 +8,11 @@
 <br />
 
 <div align="center">
-  <video src="demo.mp4" width="100%" controls autoplay muted>
-    Your browser does not support the video tag.
-  </video>
+  <a href="https://github.com/oyelurker/LegalKlarity/raw/master/demo.mp4">
+    <img src="https://img.shields.io/badge/▶_Watch_Demo_Video-Click_Here-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch Demo Video" />
+  </a>
   <p><i><b>Watch LegalKlarity in action:</b> Simplifying legal complexity in seconds.</i></p>
+  <p><i>(Click the badge above to play the video)</i></p>
 </div>
 
 ---
